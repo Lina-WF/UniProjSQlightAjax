@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  		<title>ГК Юрист и Недвижимость</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="shortcut icon" href="img/icon.jpg" type="image/jpg">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="js/jquery-3.7.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+				$("button[data-dialog='dialog']").click(
+						function()
+						{
+							location.reload();
+						}
+					);
+					
+					
+                $('form').submit(function(e) {
+                    e.preventDefault();
+                    
+                    var formData = $(this).serialize();
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: 'php/mailer.php',
+                        data: formData,
+                        success: function(response) {
+                            $("div[data-status='success']").removeAttr("style");
+                        },
+                        error: function(error) {
+                            $("div[data-status='error']").removeAttr("style");
+                        }
+                    });
+                });
+            });
+        </script>
+	</head>
+	<body>
+		<div class="header flex_container color1">
+			<div class="header_inner center logo_container">
+				<div class="logo center">
+					<a href="index.php"><img src="img/logo.jpg"></a>
+				</div>
+			</div>
+			<div class="header_inner_contacts center padding15">
+				<h1 class="header_inner_title">Контакты</h1>
+			</div>
+		</div>
+		<div class="breadcrumbs_inner color3">
+			<a class="dark" href="index.php">Главная</a> / Контакты
+		</div>
+		<div class="main_inner">
+			<div class="contact_container flex_container">
+				<div class="contact_inner">
+					На звонки и сообщения круглосуточно отвечают напрямую опытные юристы и адвокаты, в случае если мы не 
+					смогли Вам ответить на звонок, просим Вас оставлять заявки в письменной форме, мы обязательно с Вами свяжемся.<br><br>
+					<a class="dark" href="tel:+79671202250">+79256926062</a><br>
+					<a class="dark" href="tel:+79671202250">+79207919963</a><br><br>
+				
+					<a class="dark" href="mailto:ushakova.l1na21@gmail.com">nedvigemosty@yandex.ru</a>
+				</div>
+			
+				<div class="contact_inner">
+					<span class="bigger_text">Заполните форму, чтобы мы позвонили Вам:</span><br><br>
+					<form action="php/mailer.php" method="post">
+					<div class="input_container">
+						<div>Введите ФИО:</div>
+						<input type="text" placeholder="ФИО" id="nm" name="nm" required />
+					</div>
+					<div class="input_container">
+						<div>Введите телефон:</div>
+						<input type="tel" id="phone" name="phone" value="+7" pattern="^\+7[0-9]{10}" placeholder="+7----------" required />
+					</div>
+					<button class="all_corners" type="submit">Позвоните мне!</button><br><br>
+					</form>
+                    <div data-status='success' class='box center flex_container' style="display:none;">
+						<div> 
+							Ваша заявка успешно отправлена! В скором времени мы Вам позвоним.
+							<br>
+							<br>
+							<button data-dialog='dialog' data-status='success' class='light'>Ок</button>
+						</div>
+					</div>
+                    <div data-status='error' class='box center flex_container' style="display:none;">
+						<div> 
+							Что-то пошло не так. Пожалуйста, повторите позже снова или позвоните нам.
+							<br>
+							<br>
+							<button data-dialog='dialog' data-status='error' class='light'>Ок</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="center">
+				Метро Румянцево, БП Румянцево, корпус Г<br>
+				<div>
+				<script type="text/javascript" charset="utf-8" 
+				async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A904773b1b760e5a7e352df14f5f4a2783c008b9000bb6cb0a01f80d4adc33367&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+				</div>
+				<br><br>
+			</div>
+			<br>
+			<div class="center">
+				<button class="all_corners" onclick="location.href='index.php'">На главную</button>
+			</div>
+		</div>
+		<div class="footer center flex_container color3">
+			<div class="footer_inner padding15 logo phone_hidden">
+				<a href="index.php"><img src="img/logo.jpg"></a>
+			</div> 
+			<div class="footer_inner padding15">
+				<div class="footer_inner_title bigger_text">Контакты</div> 
+				<div>
+					<a class="dark" href="mailto:ushakova.l1na21@gmail.com">nedvigemosty@yandex.ru</a><br>
+					<a class="dark" href="tel:+79671202250">+79256926062</a><br>
+					<a class="dark" href="tel:+79671202250">+79207919963</a><br>
+				</div> 
+			</div> 
+			<div class="footer_inner padding15">
+				<div class="footer_inner_title bigger_text">Адрес</div> 
+				<div>метро Румянцево, БП Румянцево, корпус Г</div> 
+			</div>
+			<div class="footer_inner padding15">
+				<div class="footer_inner_title bigger_text left">Список профилей:</div> 
+				<div class="left">
+					<a class="dark" href="civil.php">Гражданское право</a><br>
+					<a class="dark" href="citizenship.php">Проблемы гражданства и миграции</a><br>
+					<a class="dark" href="military.php">Проблемы воинской службы/мобилизации и СВО</a><br>
+					<a class="dark" href="estate.php">Риэлтерские услуги</a><br>
+					<a class="dark" href="criminal.php">Уголовное право, представление интересов и сопровождение клиента</a><br>
+				</div> 
+			</div> 
+		</div>
+	</body>
+</html>
